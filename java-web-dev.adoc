@@ -1,0 +1,17 @@
+= java-web-dev
+:toc:
+
+== Chapter 02.
+* https://www.baeldung.com/maven-java-version[Setting the Java Version in Maven]
+
+// TODO jetty-maven-plugin을 이용하면 Servlet 호출이 제대로 되지 않았다.
+// TODO Bootstrap을 제대로 적용해보도록.
+
+== References
+=== Jetty
+* https://docs.huihoo.com/jetty/the-definitive-reference/jetty-maven-plugin.html[Configuring the Jetty Maven Plugin]
+* https://www.baeldung.com/deploy-to-jetty[Deploying Web Applications in Jetty]
+* https://javapointers.com/how-to/add-maven-jetty-plugin/[How to add Maven Jetty Plugin]
+** ``jetty-maven-plugin``을 ``<pluginManagement/>`` 내부에 놓으면 IntelliJ에서 제대로 동작하지 않는다.
+* https://examples.javacodegeeks.com/enterprise-java/jetty/maven-jetty-plugin-example/[Maven Jetty Plugin Example]
+* https://linuxism.ustd.ip.or.kr/1024[Maven을 이용한 웹 어플리케이션 개발 및 Jetty 연동법]
