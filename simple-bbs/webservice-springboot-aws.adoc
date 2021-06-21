@@ -1,3 +1,15 @@
 = Web Service using Spring Boot and AWS
 :toc:
 
+=== Chap 04.
+Bootstrap 최신버젼인 v4.6.0 기준으로 Bootstrap 웹사이트 문서에 따라 ``header.mustache``, ``footer.mustache``를 작성시 오류 발생.
+
+확인 결과 ``footer.mustache``에 삽입한 jQuery가 제대로 동작하지 않은 것이 원인이었다. +
+즉 'slim' 버젼이 아니라 'full' 버젼을 사용해야하고 ``integrity`` 속성도 빼야 했다.
+
+---
+https://stackoverflow.com/questions/32087469/the-attribute-readonly-is-undefined-for-the-annotation-type-transactional[The attribute readOnly is undefined for the annotation type Transactional]
+
+* ``org.springframework.transaction.annotation.Transactional``을 지정해야한다.
+
+---
