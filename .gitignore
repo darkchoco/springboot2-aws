@@ -36,3 +36,5 @@ target/
 # etc.
 _sources/
 tmp/
+img/
+application-oauth.properties
