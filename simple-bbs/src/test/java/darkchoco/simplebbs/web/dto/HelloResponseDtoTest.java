@@ -13,6 +13,7 @@ public class HelloResponseDtoTest {
 
         HelloResponseDto helloResponseDto = new HelloResponseDto(name, amt);
 
+        // assertj라는 테스트 검증 라이브러리의 검증 메소드
         assertThat(helloResponseDto.getName()).isEqualTo(name);
         assertThat(helloResponseDto.getAmt()).isEqualTo(amt);
     }

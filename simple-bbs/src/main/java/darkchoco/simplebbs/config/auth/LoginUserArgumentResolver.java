@@ -11,6 +11,8 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 
 import javax.servlet.http.HttpSession;
 
+// HandlerMethodArgumentResolver는 항상 WebMvcConfigurer의 addArgumentResolver()를 통해 추가해야 한다.
+// WebConfig 클래스 참조.
 @RequiredArgsConstructor
 @Component
 public class LoginUserArgumentResolver implements HandlerMethodArgumentResolver {
@@ -27,7 +29,6 @@ public class LoginUserArgumentResolver implements HandlerMethodArgumentResolver 
     }
 
     // 파라미터에 전달할 객체 생성.
-    // 여기서는 Session에서 객체를 가져온다.
     @Override
     public Object resolveArgument(MethodParameter methodParameter, ModelAndViewContainer modelAndViewContainer,
                                   NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory)

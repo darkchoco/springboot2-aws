@@ -13,7 +13,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest  // 별다른 설정 없이 @SpringBootTest를 사용하면 H2 데이터베이스를 자동 실행해준다
 public class PostsRepositoryTest {
 
     @Autowired
