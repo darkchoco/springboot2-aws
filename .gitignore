@@ -38,3 +38,4 @@ _sources/
 tmp/
 img/
 application-oauth.properties
+application-prd-db.properties
