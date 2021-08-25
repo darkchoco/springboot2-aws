@@ -4,6 +4,7 @@
 {sp}+
 
 * 학습시 의문점은 https://github.com/jojoldu/freelec-springboot2-webservice 에서 검색하거나 질문을 올릴 수 있다.
+* 5, 8, 9장의 갈무리는 ``./img/ch05,08,09`` 폴더를 참조.
 
 {sp}+
 
@@ -109,23 +110,43 @@ image::./img/4-05.jpg[]
 세부적인 내용은 https://github.com/jojoldu/freelec-springboot2-webservice/issues/32[여기]를 참조하자.
 
 '''
-
-image::./img/5-00-1.jpg[]
-image::./img/5-00-2.jpg[]
-image::./img/5-00-3.jpg[]
-image::./img/5-01.jpg[SecurityConfig.java]
-image::./img/5-02.jpg[CustomOAuth2UserService.java]
-image::./img/5-03.jpg[OAuthAttributes.java]
-image::./img/5-04.jpg[SessionUser.java]
-image::./img/5-05.jpg[index.mustache 외]
-image::./img/5-06.jpg[Annotation 적용 #1]
-image::./img/5-07.jpg[Annotation 적용 #2]
-image::./img/5-08.jpg[세션 저장소로 데이터베이스 사용하기]
-image::./img/5-09.jpg[기존 테스트에 시큐리티 적용]
-image::./img/5-10.jpg[]
-image::./img/5-11.jpg[]
-image::./img/5-12.jpg[]
-image::./img/5-13.jpg[]
-image::./img/5-14.jpg[]
-
 {sp}+
+
+== Chap 08. EC2에 배포하기
+``springboot2-aws.sh`` 참조. +
+사용중인 ``Dev`` 서버의 디폴트 JDK가 1.8 이라서 아래 내역의 추가가 필요했다.
+
+[source, bash]
+----
+export JAVA_HOME="/usr/lib/jvm/java-11-openjdk"
+export PATH=/usr/lib/jvm/java-11-openjdk/bin:$PATH
+----
+
+== Chap 09. 배포 자동화
+순서는 다음과 같다.
+
+* Jenkins 프로젝트 구성 (GitHub 연동)
+* ``jenkins-deploy``라는 사용자 추가
+** Permission: AmazonS3FullAccess, AWSCodeDeployFullAccess
+** Access Key ID, Secret Access Key 생성
+* ``Dev`` 내 ``jenkins``로 로그인하여 앞서 생성한 Access Key, Secret Access Key 등록 (``jenkis`` 사용자로 ``aws cli``를 사용할 수 있도록)
+* Jenkins Credentials에 상기 키 값들 등록
+* S3 bucket 생성
+* Jenkins Job 내 Build 설정 수정하여 artifact, ``appspec.yml`` 및 필요한 파일을 zip 파일로 묶어서 S3 bucket으로 올릴 수 있도록 한다.
+* IAM Role (AmazonEC2RoleforAWSCodeDeploy policy가 추가된) 생성하여 ``Dev``에 assign
+* ``Dev`` reboot. 그다음 ``Prd``에 CodeDeploy agent 설치.
+[source, bash]
+----
+centos@prd ~ $ sudo yum update
+centos@prd ~ $ sudo yum install ruby
+centos@prd ~ $ sudo yum install wget
+centos@prd ~ $ wget https://aws-codedeploy-eu-west-1.s3.eu-west-1.amazonaws.com/latest/install
+centos@prd ~ $ chmod +x ./install
+centos@prd ~ $ sudo ./install auto
+
+centos@prd ~ $ sudo service codedeploy-agent status
+The AWS CodeDeploy agent is running as PID 8182
+
+centos@prd ~ $ rm -f install
+----
+* IAM Role (AWSCodeDeployRole policy가 추가된) 생성

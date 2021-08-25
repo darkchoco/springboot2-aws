@@ -1,0 +1,22 @@
+version: 0.0
+os: linux
+files:
+  - source:  /
+    destination: /home/centos/app/springboot2-aws/zip/
+    overwrite: yes
+
+permissions:
+  - object: /
+    pattern: "**"
+    owner: centos
+    group: centos
+
+hooks:
+  BeforeInstall:
+    - location: before-deploy.sh
+      timeout: 60
+      runas: centos
+  ApplicationStart:
+    - location: deploy.sh
+      timeout: 60
+      runas: centos
