@@ -1,8 +1,8 @@
 version: 0.0
 os: linux
 files:
-  - source:  /
-    destination: /home/centos/app/springboot2-aws/zip/
+  - source: /
+    destination: /var/app/springboot2-aws/zip/
     overwrite: yes
 
 permissions:

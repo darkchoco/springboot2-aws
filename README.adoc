@@ -126,15 +126,18 @@ export PATH=/usr/lib/jvm/java-11-openjdk/bin:$PATH
 순서는 다음과 같다.
 
 * Jenkins 프로젝트 구성 (GitHub 연동)
-* ``jenkins-deploy``라는 사용자 추가
-** Permission: AmazonS3FullAccess, AWSCodeDeployFullAccess
-** Access Key ID, Secret Access Key 생성
-* ``Dev`` 내 ``jenkins``로 로그인하여 앞서 생성한 Access Key, Secret Access Key 등록 (``jenkis`` 사용자로 ``aws cli``를 사용할 수 있도록)
-* Jenkins Credentials에 상기 키 값들 등록
+* AWS > IAM > ``jenkins-deploy`` 사용자 추가
+1. Permission: AmazonS3FullAccess, AWSCodeDeployFullAccess
+1. Access Key ID, Secret Access Key 생성
+1. ``Dev`` 내 ``jenkins``로 로그인하여 생성한 Access Key, Secret Access Key 등록 (``jenkis`` 사용자로 ``aws cli``를 사용할 수 있도록)
+1. Jenkins Credentials에 상기 키 값들 등록
 * S3 bucket 생성
 * Jenkins Job 내 Build 설정 수정하여 artifact, ``appspec.yml`` 및 필요한 파일을 zip 파일로 묶어서 S3 bucket으로 올릴 수 있도록 한다.
-* IAM Role (AmazonEC2RoleforAWSCodeDeploy policy가 추가된) 생성하여 ``Dev``에 assign
-* ``Dev`` reboot. 그다음 ``Prd``에 CodeDeploy agent 설치.
+
+CAUTION: zip 파일 내 계층이 없어야 한다. 즉 ``appspec.yml`` 파일 등이 zip 파일 내 서브디렉토리에 위치하면 안된다.
+
+* IAM Role (AmazonEC2RoleforAWSCodeDeploy policy가 추가된) 생성하여 ``Prd``에 assign 한다. 그다음 ``Prd`` reboot.
+* ``Prd``에 https://docs.aws.amazon.com/codedeploy/latest/userguide/codedeploy-agent-operations-install-linux.html[CodeDeploy agent 설치].
 [source, bash]
 ----
 centos@prd ~ $ sudo yum update
@@ -149,4 +152,6 @@ The AWS CodeDeploy agent is running as PID 8182
 
 centos@prd ~ $ rm -f install
 ----
-* IAM Role (AWSCodeDeployRole policy가 추가된) 생성
+* IAM Role (AWSCodeDeployRole policy가 추가된) 생성.
+* CodeDeploy로 가서 Application 만들고 'Deployment Group'을 생성한다. +
+이때 앞서 만든 IAM Role을 지정한다.

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-REPO=/home/centos/app/springboot2-aws
+REPO=/var/app/springboot2-aws
 
 echo ">>> Copying artifact"
 
@@ -26,7 +26,7 @@ echo ">>> JAR Name: $JAR_NAME"
 
 chmod +x "$JAR_NAME"
 
-echo ">>> $JAR_NAME 실행"
+echo ">>> Run $JAR_NAME"
 
 # classpath가 붙으면 jar 안에 있는 resource 디렉토리를 기준으로 경로가 생성된다.
 nohup java -jar \
