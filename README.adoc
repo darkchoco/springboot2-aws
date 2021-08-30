@@ -154,4 +154,7 @@ centos@prd ~ $ rm -f install
 ----
 * IAM Role (AWSCodeDeployRole policy가 추가된) 생성.
 * CodeDeploy로 가서 Application 만들고 'Deployment Group'을 생성한다. +
-이때 앞서 만든 IAM Role을 지정한다.
+이때 앞서 만든 IAM Role을 지정한다. (https://lemontia.tistory.com/945[[aws\] Jenkins + S3 + CodeDeploy 를 이용해 배포하기(수동배포)] 참조)
+
+* https://docs.aws.amazon.com/codepipeline/latest/userguide/tutorials-simple-s3.html[Tutorial: Create a simple pipeline (S3 bucket)] 을 참조하여 CodePipeline을 만든다. +
+이를 통해, S3 내 저장된 artifact가 build 프로세스를 통해 변경되면 자동으로 PRD에 deploy 된다.
