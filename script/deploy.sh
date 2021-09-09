@@ -4,6 +4,7 @@ REPO=/var/app/springboot2-aws
 
 echo ">>> Copying artifact"
 
+# jar 파일을 zip 디렉토리의 상위 디렉토리로 copy
 cp $REPO/zip/*.jar $REPO/
 
 echo ">>> Checking if the app is running"
