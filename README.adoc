@@ -158,3 +158,31 @@ centos@prd ~ $ rm -f install
 
 * https://docs.aws.amazon.com/codepipeline/latest/userguide/tutorials-simple-s3.html[Tutorial: Create a simple pipeline (S3 bucket)] 을 참조하여 CodePipeline을 만든다. +
 이를 통해, S3 내 저장된 artifact가 build 프로세스를 통해 변경되면 자동으로 PRD에 deploy 된다.
+
+image::./img/9-01.jpg[]
+
+== Chap 10. 24시간 365일 중단 없는 서비스
+Docker로 Nginx 구성시 아래 항목들을 주의한다.
+
+* ``/etc/nginx/nginx.conf``가 ``/etc/nginx/conf.d/default.conf``를 include 하고 있다. +
+즉 ``/etc/nginx/conf.d/default.conf``에서 아래 내역을 수정해야 한다.
+
+[source, bash]
+----
+...
+location / {
+#    root   /usr/share/nginx/html;
+#    index  index.html index.htm;
+    proxy_pass http://172.17.0.1:8080;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+}
+...
+----
+
+* http://localhost:8080 로 ``proxy_pass``를 설정하면 안된다. +
+Host의 ``localhost:8080``에서 동작 중인 Spring Boot app은 컨테이너 쪽에서 봤을 때는 localhost에서 동작하는 것이 아니기 때문이다.
+
+* http://ec2-99-80-33-183.eu-west-1.compute.amazonaws.com/ 로 Google Cloud에 등록했기 때문에 이 도메인 명으로 접근해야 한다. (http://99.80.33.183 으로는 사용자 인증 불가능)
+
