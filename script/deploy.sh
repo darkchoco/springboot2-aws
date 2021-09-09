@@ -8,7 +8,7 @@ cp $REPO/zip/*.jar $REPO/
 
 echo ">>> Checking if the app is running"
 
-CURRENT_PID=$(pgrep -fl springboot2-aws | grep jar | awk '{print $1}')
+CURRENT_PID=$(pgrep -fa springboot2-aws | grep jar | awk '{print $1}')
 if [ -z "$CURRENT_PID" ]; then
     echo ">>> No app running"
 else
