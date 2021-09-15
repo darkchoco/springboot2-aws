@@ -8,16 +8,16 @@ source "${ABSDIR}"/profile.sh
 
 REPO=/var/app/springboot2-aws/dist
 
-echo ">>> Copying artifact"
+echo ">>> Copying artifact."
 echo ">>> cp $REPO/zip/*.jar $REPO/"
 cp $REPO/zip/*.jar $REPO/
 
-echo ">>> 새 어플리케이션 배포"
+echo ">>> 새 어플리케이션 배포."
 # shellcheck disable=SC2012
 JAR_NAME=$(ls -tr $REPO/*.jar | tail -n 1)
 
 echo ">>> JAR Name: $JAR_NAME"
-echo ">>> $JAR_NAME 에 실행권한 추가"
+echo ">>> $JAR_NAME 에 실행권한 추가."
 chmod +x "$JAR_NAME"
 
 IDLE_PROFILE=$(find_idle_profile)

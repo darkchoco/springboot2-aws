@@ -21,7 +21,7 @@ do
 
   if [ "${UP_COUNT}" -ge 1 ]
   then  # $up_count >= 1 ("prd" 문자열이 있는지 검증)
-      echo ">>> Health check 성공"
+      echo ">>> Health check 성공. Port를 변경하여 restart 합니다..."
       switch_proxy
       break
   else
@@ -31,7 +31,7 @@ do
 
   if [ "${RETRY_COUNT}" -eq 10 ]
   then
-    echo ">>> Health check 실패. "
+    echo ">>> Health check 실패."
     echo ">>> Nginx에 연결하지 않고 배포를 종료합니다."
     exit 1
   fi
