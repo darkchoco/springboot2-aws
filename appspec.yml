@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /var/app/springboot2-aws/zip/
+    destination: /var/app/springboot2-aws/dist/zip/
     overwrite: yes
 
 permissions:
@@ -13,10 +13,18 @@ permissions:
 
 hooks:
   BeforeInstall:
-    - location: before-deploy.sh
+    - location: before-deploy-dist.sh
+      timeout: 60
+      runas: centos
+  AfterInstall:
+    - location: stop.sh  # nginx와 연결되어 있지 않은 springboot 종료
       timeout: 60
       runas: centos
   ApplicationStart:
-    - location: deploy.sh
+    - location: start.sh  # nginx와 연결되어 있지 않은 Port로 새 버젼의 springboot 시작
+      timeout: 60
+      runas: centos
+  ValidateService:
+    - location: health.sh  # 새 springboot가 정상적으로 실행되었는지 확인
       timeout: 60
       runas: centos
