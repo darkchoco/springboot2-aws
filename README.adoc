@@ -184,5 +184,8 @@ location / {
 * http://localhost:8080 로 ``proxy_pass``를 설정하면 안된다. +
 Host의 ``localhost:8080``에서 동작 중인 Spring Boot app은 컨테이너 쪽에서 봤을 때는 localhost에서 동작하는 것이 아니기 때문이다.
 
-* http://ec2-99-80-33-183.eu-west-1.compute.amazonaws.com/ 로 Google Cloud에 등록했기 때문에 이 도메인 명으로 접근해야 한다. (http://99.80.33.183 으로는 사용자 인증 불가능)
+* http://ec2-XXX-80-XXX-XXX.eu-west-1.compute.amazonaws.com/ 로 Google Cloud에 등록했기 때문에 이 도메인 명으로 접근해야 한다. (http://XXX.80.XXX.XXX 으로는 사용자 인증 불가능)
 
+---
+
+* 생성되는 artifact 이름을 버젼을 포함해서 자동으로 변경되게 하기 위하여 ``pom.xml`` 일부를 수정했다. https://stackoverflow.com/questions/18100389/maven-override-project-version-from-command-line[maven override project.version from command line] 를 참조한다.
